@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>config.ini</file>
+        <file>Calibration</file>
+    </qresource>
+</RCC>
