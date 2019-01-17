@@ -65,11 +65,11 @@ void MarkerDetect::updateCameraCalibration(const std::string & filename)
 
 bool MarkerDetect::updateMarker()
 {
-	Mat frame;
+	//Mat frame;
 
 	
-	getMat(frame );
-	if (frame.empty())
+	//getMat(frame );
+	if (imagesSize.empty())
 	{
 		return false;
 
@@ -87,7 +87,7 @@ bool MarkerDetect::updateMarker()
 	vector<vector<Point2f>> markerCorners;
 	vector<int> markerIds;
 
-    aruco::detectMarkers(frame, m_markerDictionary, markerCorners, markerIds);
+    aruco::detectMarkers(imagesSize, m_markerDictionary, markerCorners, markerIds);
     aruco::estimatePoseSingleMarkers(markerCorners, m_arucoSquareDimension, m_cameraMatrix, m_distanceCoefficients, rotationVectors, translationVectors);
 
 	if (markerIds.size() != 0)
@@ -96,11 +96,11 @@ bool MarkerDetect::updateMarker()
         m_lastRotationVectors = rotationVectors[0];
         m_lastTranslationVectors = translationVectors[0];
         m_lastMarkerCorner = markerCorners[0];
-        aruco::drawAxis(frame, m_cameraMatrix, m_distanceCoefficients, rotationVectors[0], translationVectors[0], m_arucoSquareDimension/2.0f);
+        aruco::drawAxis(imagesSize, m_cameraMatrix, m_distanceCoefficients, rotationVectors[0], translationVectors[0], m_arucoSquareDimension/2.0f);
         m_ready = true;
 	}
 
-	frame.copyTo(m_lastFrame);
+	imagesSize.copyTo(m_lastFrame);
 
 	return m_ready;
 }
